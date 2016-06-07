@@ -39,6 +39,11 @@ router.put('/users/:userId(\\d+)',      sessionController.loginRequired,
 router.delete('/users/:userId(\\d+)',   sessionController.loginRequired, 
 										sessionController.adminAndNotMyselfRequired, 
 										userController.destroy);  // borrar cuenta
+// Definición de ruta de /author
+
+router.get('/author', function(req, res, next) {
+res.render('author', { title: 'Autores' });
+});
 
 // Definición de rutas de /quizzes
 router.get('/quizzes',                     	quizController.index);
