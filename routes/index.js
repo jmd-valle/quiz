@@ -16,6 +16,10 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
+/* GET authors page. */
+router.get('/author', function(req, res, next) {
+  res.render('author', { title: 'Autores' });
+});
 
 // Autoload de parametros
 router.param('quizId', quizController.load);  // autoload :quizId
