@@ -1,6 +1,15 @@
 
-<h2> <%= title || "Quizzes" %> </h2>
-
+<h2> <%= "Quizzes" %> </h2>
+<div class="container">
+      <div class="formulario">
+        <form class="form" action="/quizzes" method="get">
+          <input type="text" name="search" placeholder="Búsqueda"></input>
+          <button class="buscar" type="submit">Buscar</button>
+        </form>
+      </div>
+      <% if(info){ %> <h3>Resultados de la búsqueda: <span class="gray"> <%= info %> </span></h3> <% } %>
+      
+    </div>
 <%  if (locals.paginate_control) { %>
   <%- paginate_control %>
 <% } %>
