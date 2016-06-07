@@ -1,7 +1,25 @@
 
+<h2> <%= title || "Quizzes" %> </h2>
+
+<%  if (locals.paginate_control) { %>
+  <%- paginate_control %>
+<% } %>
+
 <table>
-  <% for (var i in quizzes) { %>        
+  <% for (var i in quizzes) { %> 
      <tr>
+        <td>
+
+          <% var quiz = quizzes[i]; %>      
+          <%- include ../favourites/_stars.ejs %>
+
+          <% if (quizzes[i].Attachment) { %>
+             <img src="<%= quizzes[i].Attachment.url %>" width="50px" />
+          <% } else { %> 
+             <img src="/imgs/question.png" width="50px" />
+          <% } %> 
+        </td>
+
         <td>
            <a href="/quizzes/<%= quizzes[i].id %>"><%= quizzes[i].question %></a>
         </td>
