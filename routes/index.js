@@ -43,10 +43,18 @@ router.put('/users/:userId(\\d+)',      sessionController.loginRequired,
 router.delete('/users/:userId(\\d+)',   sessionController.loginRequired, 
 										sessionController.adminAndNotMyselfRequired, 
 										userController.destroy);  // borrar cuenta
+<<<<<<< HEAD
+// Definición de ruta de /author
+
+router.get('/author', function(req, res, next) {
+res.render('author', { title: 'Autores' });
+});
+=======
 router.get('/users/:userId(\\d+)/quizzes', sessionController.loginRequired, 
 										   sessionController.adminOrMyselfRequired, 
 										   quizController.index);     // ver las preguntas de un usuario
 
+>>>>>>> master
 
 // Definición de rutas de /quizzes
 router.get('/quizzes',                     	quizController.index);
