@@ -432,21 +432,6 @@ exports.search = function(req, res, next){
 };
 
 
-// GET /quizzes/:id/check
-exports.check = function(req, res) {
-  models.Quiz.findById(req.params.quizId).then(function(quiz){
-    if (quiz){
-      var answer = req.query.answer || '';
-      var result = answer === quiz.answer ? 'correcta' : 'incorrecta';
-      var color = answer === quiz.answer ? 'green' : 'red';
-      res.render('quizzes/result', { title: 'respuesta', result: result, color: color, answer: answer });
-    }
-    else{
-      throw new Error('No existe ese quiz en la base de datos');
-    }
-  }).catch(function(error) { next(error); });
-};
-
 
         
 
