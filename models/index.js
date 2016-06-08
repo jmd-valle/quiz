@@ -37,8 +37,8 @@ var User = sequelize.import(path.join(__dirname,'user'));
 
 // Importar la definicion de la tabla Attachments de attachment.js
 var Attachment = sequelize.import(path.join(__dirname,'attachment'));
-Comment.belongsTo(User);
-User.hasMany(Comment);
+Comment.belongsTo(User, {as: 'Autor', foreignKey: 'Usuario'});
+User.hasMany(Comment, {foreignKey: 'Usuario'});
 // Favoritos:
 //   Un Usuario tiene muchos quizzes favoritos.
 //   Un quiz tiene muchos fans (los usuarios que lo han marcado como favorito)

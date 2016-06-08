@@ -20,10 +20,12 @@ exports.load = function(req, res, next, commentId) {
 
 // GET /quizzes/:quizId/comments/new
 exports.new = function(req, res, next) {
-  var comment = models.Comment.build({text: ""});
+  var comment = models.Comment.build({text: ""
+                                     });
 
-  res.render('comments/new', { comment: comment, 
-  	                           UserId: models.User.id,
+  res.render('comments/new', { comment: comment,
+                                AutorId: req.session.user.id, 
+                                Usuario: req.session.user.username, 
                                quiz: req.quiz
   	                         });
 };
@@ -33,7 +35,8 @@ exports.new = function(req, res, next) {
 exports.create = function(req, res, next) {
   var comment = models.Comment.build(
       { text:   req.body.comment.text,
-       UserId: models.User.id,         
+      AutorId: req.session.user.id,
+      Usuario: req.session.user.username,          
         QuizId: req.quiz.id
       });
 
@@ -50,7 +53,8 @@ exports.create = function(req, res, next) {
       };
 
       res.render('comments/new', { comment: comment,
-                                   UserId: models.User.id,
+                                    AutorId: req.session.user.id,
+                                    Usuario: req.session.user.username, 
       	                           quiz:    req.quiz});
     })
     .catch(function(error) {
