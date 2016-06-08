@@ -23,7 +23,7 @@ exports.new = function(req, res, next) {
   var comment = models.Comment.build({text: ""});
 
   res.render('comments/new', { comment: comment, 
-  	                          // AuthorId: models.User.id,
+  	                           UserId: models.User.id,
                                quiz: req.quiz
   	                         });
 };
@@ -33,7 +33,7 @@ exports.new = function(req, res, next) {
 exports.create = function(req, res, next) {
   var comment = models.Comment.build(
       { text:   req.body.comment.text,
-        //AuthorId: models.User.id,         
+       UserId: models.User.id,         
         QuizId: req.quiz.id
       });
 
@@ -50,7 +50,7 @@ exports.create = function(req, res, next) {
       };
 
       res.render('comments/new', { comment: comment,
-                                  // AuthorId: models.User.id,
+                                   UserId: models.User.id,
       	                           quiz:    req.quiz});
     })
     .catch(function(error) {

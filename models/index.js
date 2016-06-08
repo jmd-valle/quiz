@@ -11,6 +11,7 @@ var Sequelize = require('sequelize');
 //    DATABASE_URL = postgres://user:passwd@host:port/database
 
 var url, storage;
+// sequelize.sync() crea e inicializa tabla de preguntas en DB
 
 if (!process.env.DATABASE_URL) {
     url = "sqlite:///";
@@ -24,6 +25,7 @@ var sequelize = new Sequelize(url,
 	 						  { storage: storage,
 				              	omitNull: true 
 				              });
+
 // Importar la definicion de la tabla Quiz de quiz.js
 var Quiz = sequelize.import(path.join(__dirname,'quiz'));
 
