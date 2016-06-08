@@ -51,7 +51,10 @@ exports.index = function(req, res, next) {
     var search = req.query.search || '';
   var reg = new RegExp(' ', 'g', 'i');
   var busqueda = '%' + search.replace(reg, '%') + '%';
+  var jsun = '% %';
   var info = search;
+  
+  if (req.url != ("/quizzes.json")){
   models.Quiz.findAll({where: {question: {$like: busqueda}}}).then(function(quizzes){
       quizzes.sort();
       res.render('quizzes/index.ejs', { quizzes: quizzes, info: info});
@@ -115,9 +118,19 @@ exports.index = function(req, res, next) {
 		res.render('quizzes/index.ejs', {quizzes: quizzes,
                                          title: title});
 	})
+
 	.catch(function(error) {
 		next(error);
 	});
+} else{
+      models.Quiz.findAll({where: {question: {$like: jsun}}}).then(function(quizzes){
+      quizzes.sort();
+      return res.json(quizzes);
+  }).catch(function(error){ next(error);});
+ 
+
+
+}
 };
 
 
@@ -129,6 +142,7 @@ exports.show = function(req, res, next) {
     // Para usuarios logeados:
     //   Si el quiz es uno de mis favoritos, creo un atributo llamado
     //   "favourite" con el valor true.
+    if (req.url != ("/quizzes/" + req.params.quizId + ".json")){
     if (req.session.user) {
 
         req.quiz.getFans({where: {id: req.session.user.id}})
@@ -147,6 +161,9 @@ exports.show = function(req, res, next) {
     } else {
         res.render('quizzes/show', {quiz: req.quiz,
                                     answer: answer});
+        }
+    } else {
+        return res.json(req.quiz);
     }
 };
 
