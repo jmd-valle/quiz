@@ -23,7 +23,8 @@ exports.new = function(req, res, next) {
   var comment = models.Comment.build({text: ""});
 
   res.render('comments/new', { comment: comment, 
-  	                           quiz: req.quiz
+  	                          // AuthorId: models.User.id,
+                               quiz: req.quiz
   	                         });
 };
 
@@ -31,7 +32,8 @@ exports.new = function(req, res, next) {
 // POST /quizes/:quizId/comments
 exports.create = function(req, res, next) {
   var comment = models.Comment.build(
-      { text:   req.body.comment.text,          
+      { text:   req.body.comment.text,
+        //AuthorId: models.User.id,         
         QuizId: req.quiz.id
       });
 
@@ -48,6 +50,7 @@ exports.create = function(req, res, next) {
       };
 
       res.render('comments/new', { comment: comment,
+                                  // AuthorId: models.User.id,
       	                           quiz:    req.quiz});
     })
     .catch(function(error) {

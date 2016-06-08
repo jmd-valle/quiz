@@ -35,11 +35,13 @@
        if (comment.accepted) { %>
 
            <li> <%= comment.text %> </li>
+           <li> <%= comment.AuthorId %> </li>
 
        <% } else if (session.user && 
                      (session.user.isAdmin || (quiz.AuthorId === session.user.id))) { %>
 
            <li> <%= comment.text %> </li>
+           <li> <%= comment.AuthorId %> </li>
 
            <a href="/quizzes/<%= quiz.id %>/comments/<%= comment.id %>/accept?_method=PUT">
               <button>Aceptar</button>
