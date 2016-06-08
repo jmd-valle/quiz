@@ -40,6 +40,7 @@ exports.index = function(req, res, next) {
         });
 
         res.render('quizzes/index', {quizzes: favourites,
+                                    info: "",
                                      title: "Mis Preguntas Favoritas"});
     })
     .catch(function(error) {
