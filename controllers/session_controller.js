@@ -15,6 +15,22 @@ var url = require('url');
 // esa url despues de hacer login; pero si redir ya existe entonces
 // conservo su valor.
 // 
+exports.fuera = function(req, res, next){
+    if (req.session.user){
+        var ahora = Date.now();
+        var ultima_vez = req.session.user.ultima_vez;
+        if (ahora > (ultima_vez + 120000)){
+            delete req.session.user;
+            res.redirect('/session');
+
+        } else{
+            req.session.user.ultima_vez = ahora;
+            next();
+        }
+    } else { 
+        next();
+    }
+};
 exports.loginRequired = function (req, res, next) {
     if (req.session.user) {
         next();
@@ -123,7 +139,7 @@ exports.create = function(req, res, next) {
             if (user) {
     	        // Crear req.session.user y guardar campos id y username
     	        // La sesión se define por la existencia de: req.session.user
-    	        req.session.user = {id:user.id, username:user.username, isAdmin:user.isAdmin};
+    	        req.session.user = {id:user.id, username:user.username, isAdmin:user.isAdmin, ultima_vez: Date.now() };
 
                 res.redirect(redir); // redirección a redir
             } else {

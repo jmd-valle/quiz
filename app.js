@@ -8,7 +8,7 @@ var session = require('express-session');
 var partials = require('express-partials');
 var flash = require('express-flash');
 var methodOverride = require('method-override');
-
+var sessionController = require('./controllers/session_controller');
 var routes = require('./routes/index');
 
 var app = express();
@@ -41,6 +41,7 @@ app.use(session({secret: "Quiz 2016",
                  resave: false,
                  saveUninitialized: true}));
 app.use(methodOverride('_method', {methods: ["POST", "GET"]}));
+app.use(sessionController.fuera);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(partials());
